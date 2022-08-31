@@ -1,0 +1,28 @@
+@import "./reset.css";
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap");
+
+@mixin box-sizing($t) {
+  -webkit-box-sizing: $t;
+  -moz-box-sizing: $t;
+  box-sizing: $t;
+}
+
+@mixin size($w, $h) {
+  width: $w;
+  height: $h;
+}
+
+@mixin absolute-center {
+  position: absolute;
+  transform: translate(-50%, -50%);
+}
+
+@mixin flex-center($dir: vertical) {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  @if $dir==vertical {
+    flex-direction: column;
+  }
+}

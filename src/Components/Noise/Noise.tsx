@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useRecoilState } from "recoil";
-import { isVideoLoadingAtom } from "../atoms";
+import { isVideoLoadingAtom } from "../../atoms";
 import "./_Noise.scss";
 
 function Noise() {

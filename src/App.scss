@@ -1,0 +1,42 @@
+@import "./VariablesMixin.scss";
+
+.App {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.video-background {
+  position: absolute;
+  @include size(100%, 100%);
+}
+
+.Sidebar {
+  position: absolute;
+  right: 0;
+  @include size(300px, 100%);
+  margin: 0 auto;
+
+  background-color: beige;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+
+  .TitleContainer {
+    width: 100%;
+    @include flex-center();
+    padding-top: 10px;
+
+    font-family: "Montserrat", sans-serif;
+    background-color: transparent;
+    span {
+      font-size: 24px;
+      font-weight: 400;
+    }
+  }
+
+  .StreetSoundContainer {
+    width: 100%;
+    @include flex-center();
+  }
+}
