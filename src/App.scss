@@ -1,5 +1,13 @@
 @import "./VariablesMixin.scss";
 
+$sidebar-width: 400px;
+
+@mixin SidebarPos($t) {
+  position: absolute;
+  top: $t;
+  width: 100%;
+}
+
 .App {
   width: 100vw;
   height: 100vh;
@@ -7,36 +15,112 @@
 }
 
 .video-background {
+  z-index: -100;
   position: absolute;
   @include size(100%, 100%);
 }
 
 .Sidebar {
   position: absolute;
+  top: 0;
   right: 0;
-  @include size(300px, 100%);
+  @include size($sidebar-width, 100%);
   margin: 0 auto;
 
+  //TODO:Change me!!
   background-color: beige;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
 
   .TitleContainer {
-    width: 100%;
+    @include SidebarPos(20px);
     @include flex-center();
-    padding-top: 10px;
 
     font-family: "Montserrat", sans-serif;
     background-color: transparent;
     span {
-      font-size: 24px;
+      font-size: 36px;
       font-weight: 400;
     }
   }
 
+  .WalkingManSvg {
+    @include SidebarPos(70px);
+  }
+
   .StreetSoundContainer {
     width: 100%;
+    @include SidebarPos(150px);
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+
+    span {
+      font-size: 16px;
+      font-weight: 500;
+    }
+
+    .ToggleButton {
+      @include flex-center();
+      width: 120px;
+      height: 25px;
+
+      border: 1px solid white;
+      border-radius: 40px;
+      background-color: transparent;
+      cursor: pointer;
+      transition: background-color 0.2s ease-in-out;
+
+      &:hover {
+        background-color: whitesmoke;
+      }
+
+      &.active {
+        background-color: whitesmoke;
+      }
+    }
+  }
+
+  .WalkingSpeedContainer {
+    @include SidebarPos(200px);
+    width: 100%;
+    @include flex-center(horizontal);
+    gap: 20px;
+
+    .WalkingSpeedSpanContainer {
+      @include flex-center();
+      font-weight: 500;
+    }
+
+    .IconContainer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 50px;
+
+      .Icon {
+        background-color: whitesmoke;
+        border-radius: 50%;
+        padding: 4px;
+        cursor: pointer;
+        filter: brightness(1);
+        transition: filter 0.2s ease-in-out;
+      }
+
+      .IconStyles {
+        font-size: 36px;
+      }
+
+      .Nonactive {
+        background-color: none;
+        filter: brightness(0.3);
+      }
+    }
+  }
+
+  .GithubWrapper {
+    position: absolute;
+    @include SidebarPos(92vh);
     @include flex-center();
+    font-size: 32px;
+    color: whitesmoke;
   }
 }

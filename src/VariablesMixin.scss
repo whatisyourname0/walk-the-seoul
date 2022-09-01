@@ -22,7 +22,7 @@
   align-items: center;
   justify-content: center;
 
-  @if $dir==vertical {
+  @if $dir==horizontal {
     flex-direction: column;
   }
 }
