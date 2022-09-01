@@ -2,49 +2,26 @@ import { useState } from 'react';
 import { useRecoilState } from 'recoil';
 
 // Import Icons
-import { MdDirectionsWalk, MdOutlineDirectionsRun } from "react-icons/md";
-import { GiRunningNinja } from "react-icons/gi";
-import { FaGithub } from "react-icons/fa";
 import { IconContext } from 'react-icons';
+import { FaGithub } from "react-icons/fa";
+import { GiRunningNinja } from "react-icons/gi";
+import { MdDirectionsWalk, MdOutlineDirectionsRun } from "react-icons/md";
 
 // Import Styles
-import './App.scss';
+import './_App.scss';
 
-import { isVideoLoadingAtom } from './atoms';
-import Noise from './Components/Noise/Noise';
 import { ReactComponent as WalkingMan } from "./assets/WalkingMan.svg";
+import { isVideoLoadingAtom, walkingTypeAtom } from './atoms';
+import Noise from './Components/Noise/Noise';
+import YoutubePlayer from './Components/YoutubePlayer/YoutubePlayer';
 import { WalkingTypes } from './utils/interfaces';
-import YouTube, { YouTubeProps } from 'react-youtube';
-import useWindowSize from './hooks/useWindowSize';
 
 function App() {
   const [isVideoLoading, setIsVideoLoading] = useRecoilState<boolean>(isVideoLoadingAtom);
   const [isStreetSoundActive, setIsStreetSoundActive] = useState<boolean>(false);
-  const [walkingType, setWalkingType] = useState<WalkingTypes>({ value: "Walking" });
+  const [walkingType, setWalkingType] = useRecoilState<WalkingTypes>(walkingTypeAtom);
 
-  const WindowSize = useWindowSize();
-
-  const youtubeOptions: YouTubeProps['opts'] = {
-    height: `${WindowSize.height}`,
-    width: `${WindowSize.width}`,
-    playerVars: {
-      autoplay: 1, // enable autoplay
-      controls: 0, // disable player control
-      disablekb: 1, // disable keyboard control
-      fs: 0, // disable fullscreen button
-      iv_load_policy: 3, // disable special effects
-      modestbranding: 1, // disable youtube logo,
-      playsinline: 0, // full screen in iOS device
-      rel: 0, // disable relative video recommendation
-      showinfo: 0, // disable video info
-    }
-  };
-
-  const youtubeOnReady: YouTubeProps['onReady'] = (event) => {
-    event.target.playVideo();
-  }
-
-  const VIDEO_ID = "YLbSl7Xr0jM";
+  const VIDEO_ID = "UtrUouDU7oQ";
 
   return (
     <div className="App">
@@ -53,11 +30,7 @@ function App() {
       <div className="video-background">
         <div className="VideoContainer">
           {/* TODO:Do Youtube Player Configuration */}
-          <YouTube
-            videoId={VIDEO_ID}
-            opts={youtubeOptions}
-            onReady={youtubeOnReady}
-          />
+          {!isVideoLoading && <YoutubePlayer embedID={VIDEO_ID} />}
         </div>
       </div>
       <div className="Sidebar">

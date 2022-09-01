@@ -17,13 +17,13 @@ $sidebar-background-color: rgba(0, 0, 0, 0.5);
 
 .video-background {
   z-index: -100;
-  position: fixed;
-  top: 0;
+  position: absolute;
+  top: -10%;
   right: 0;
   left: 0;
-  bottom: 0;
+  bottom: -10%;
   width: 100vw;
-  height: 100vh;
+  height: 120vh;
 
   background-color: #000;
 
@@ -32,14 +32,6 @@ $sidebar-background-color: rgba(0, 0, 0, 0.5);
     pointer-events: none;
     padding-bottom: 56.25%;
     height: 0;
-
-    iframe {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-    }
   }
 }
 
