@@ -95,6 +95,8 @@ function App() {
         </div>
         <a
           href='https://github.com/whatisyourname0/walk-the-seoul'
+          target="_blank"
+          rel="noopener noreferrer"
         >
           <div className="GithubWrapper">
             <FaGithub />
