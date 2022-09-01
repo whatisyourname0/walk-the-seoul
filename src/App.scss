@@ -9,15 +9,24 @@ $sidebar-width: 400px;
 }
 
 .App {
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  height: 100%;
   overflow: hidden;
 }
 
 .video-background {
   z-index: -100;
-  position: absolute;
-  @include size(100%, 100%);
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+
+  background-color: #000;
+
+  .videoContainer {
+    pointer-events: none;
+  }
 }
 
 .Sidebar {

@@ -36,10 +36,12 @@ function App() {
     <div className="App">
       {isVideoLoading && <Noise />}
       <div className="video-background">
-        {/* TODO:Do Youtube Player Configuration */}
-        <YouTube
-          opts={youtubeOptions}
-        />
+        <div className="videoContainer">
+          {/* TODO:Do Youtube Player Configuration */}
+          <YouTube
+            opts={youtubeOptions}
+          />
+        </div>
       </div>
       <div className="Sidebar">
         <div className="TitleContainer">
