@@ -28,18 +28,35 @@ function App() {
     height: `${WindowSize.height}`,
     width: `${WindowSize.width}`,
     playerVars: {
-      autoplay: 1,
+      autoplay: 1, // enable autoplay
+      controls: 0, // disable player control
+      disablekb: 1, // disable keyboard control
+      fs: 0, // disable fullscreen button
+      iv_load_policy: 3, // disable special effects
+      modestbranding: 1, // disable youtube logo,
+      playsinline: 0, // full screen in iOS device
+      rel: 0, // disable relative video recommendation
+      showinfo: 0, // disable video info
     }
   };
+
+  const youtubeOnReady: YouTubeProps['onReady'] = (event) => {
+    event.target.playVideo();
+  }
+
+  const VIDEO_ID = "YLbSl7Xr0jM";
 
   return (
     <div className="App">
       {isVideoLoading && <Noise />}
+      <div className="TransparentLayer"></div>
       <div className="video-background">
-        <div className="videoContainer">
+        <div className="VideoContainer">
           {/* TODO:Do Youtube Player Configuration */}
           <YouTube
+            videoId={VIDEO_ID}
             opts={youtubeOptions}
+            onReady={youtubeOnReady}
           />
         </div>
       </div>
@@ -50,7 +67,8 @@ function App() {
         <WalkingMan
           width="70"
           height="70"
-          fill='white'
+          fill='#fff'
+          stroke='#fff'
           className="WalkingManSvg"
         />
         <div className="StreetSoundContainer">
