@@ -14,7 +14,6 @@ function YoutubePlayer(props) {
 
   const onPlayerReady = (event) => {
     setPlayerElement(event);
-    setIsVideoLoading(false);
   };
 
   const onPlayerPause = () => {
@@ -25,20 +24,35 @@ function YoutubePlayer(props) {
     setIsVideoLoading(true);
   };
 
+  const onPlayerBuffering = () => {
+    setIsVideoLoading(true);
+  };
+
+  const onPlayerPlaying = () => {
+    setIsVideoLoading(false);
+  };
+
+  // set video speed
   useEffect(() => {
     if (playerElement) {
       const player = playerElement.target;
       if (walkingType.value === "Running") {
-        console.log("Switched to Running");
         player.setPlaybackRate(1.5);
       } else if (walkingType.value === "Sprinting") {
-        console.log("Switched to Sprinting");
         player.setPlaybackRate(2);
       } else {
         player.setPlaybackRate(1);
       }
     }
   }, [walkingType]);
+
+  // set video volume
+  useEffect(() => {
+    if (playerElement) {
+      const player = playerElement.target;
+      player.setVolume(volume);
+    }
+  }, [volume]);
 
   return (
     <YouTube
@@ -55,6 +69,8 @@ function YoutubePlayer(props) {
       playbackRate={1}
       suggestedQuality="default"
       onReady={onPlayerReady}
+      onPlaying={onPlayerPlaying}
+      onBuffering={onPlayerBuffering}
       onEnd={onPlayerEnd}
       onPause={onPlayerPause}
       paused={isPaused}

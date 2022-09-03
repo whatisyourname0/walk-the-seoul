@@ -21,16 +21,15 @@ $sidebar-background-color: rgba(0, 0, 0, 0.5);
   top: -10%;
   right: 0;
   left: 0;
-  bottom: -10%;
   width: 100vw;
-  height: 120vh;
+  height: 140vh;
 
   background-color: #000;
 
   .VideoContainer {
     position: relative;
     pointer-events: none;
-    padding-bottom: 56.25%;
+    padding-bottom: 60%;
     height: 0;
 
     iframe {
@@ -73,10 +72,57 @@ $sidebar-background-color: rgba(0, 0, 0, 0.5);
 
   .StreetSoundContainer {
     width: 100%;
-    @include SidebarPos(150px);
+    @include SidebarPos(170px);
     display: flex;
-    justify-content: space-around;
+    flex-direction: column;
+    justify-content: center;
     align-items: center;
+    gap: 10px;
+
+    .EnableSoundContainer {
+      width: 100%;
+
+      display: flex;
+      flex-direction: row;
+      justify-content: space-around;
+      align-items: center;
+    }
+
+    .SoundbarContainer {
+      width: 100%;
+      @include flex-center();
+      gap: 30px;
+
+      .SoundIcon {
+        position: relative;
+        top: 1px;
+        font-size: 30px;
+        color: whitesmoke;
+      }
+
+      #volume {
+        appearance: none;
+        -webkit-appearance: none;
+        border: 1px solid whitesmoke;
+        border-radius: 5px;
+        background: transparent;
+        width: 250px;
+        height: 5px;
+      }
+
+      #volume::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        appearance: none;
+
+        width: 20px;
+        height: 20px;
+        background: whitesmoke;
+
+        border: 3px solid whitesmoke;
+        border-radius: 100%;
+        cursor: pointer;
+      }
+    }
 
     span {
       font-size: 16px;
@@ -109,13 +155,14 @@ $sidebar-background-color: rgba(0, 0, 0, 0.5);
   }
 
   .WalkingSpeedContainer {
-    @include SidebarPos(240px);
+    @include SidebarPos(300px);
     width: 100%;
     @include flex-center(horizontal);
     gap: 20px;
 
     .WalkingSpeedSpanContainer {
       @include flex-center();
+      font-size: 20px;
       font-weight: 500;
       color: white;
     }
