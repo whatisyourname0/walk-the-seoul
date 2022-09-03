@@ -131,4 +131,5 @@ table {
 body {
   font-family: "Montserrat", sans-serif;
   overflow: hidden;
+  user-select: none;
 }

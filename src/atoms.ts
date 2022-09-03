@@ -10,3 +10,8 @@ export const walkingTypeAtom = atom<WalkingTypes>({
   key: "walkingType",
   default: { value: "Walking" },
 });
+
+export const volumeAtom = atom<number>({
+  key: "volume",
+  default: 0,
+});

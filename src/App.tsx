@@ -11,15 +11,16 @@ import { MdDirectionsWalk, MdOutlineDirectionsRun } from "react-icons/md";
 import './_App.scss';
 
 import { ReactComponent as WalkingMan } from "./assets/WalkingMan.svg";
-import { isVideoLoadingAtom, walkingTypeAtom } from './atoms';
+import { isVideoLoadingAtom, volumeAtom, walkingTypeAtom } from './atoms';
 import Noise from './Components/Noise/Noise';
-import YoutubePlayer from './Components/YoutubePlayer/YoutubePlayer';
+import YoutubePlayer from './Components/YoutubePlayer/YoutubePlayer.jsx';
 import { WalkingTypes } from './utils/interfaces';
 
 function App() {
   const [isVideoLoading, setIsVideoLoading] = useRecoilState<boolean>(isVideoLoadingAtom);
   const [isStreetSoundActive, setIsStreetSoundActive] = useState<boolean>(false);
   const [walkingType, setWalkingType] = useRecoilState<WalkingTypes>(walkingTypeAtom);
+  const [volume, setVolume] = useRecoilState<number>(volumeAtom);
 
   const VIDEO_ID = "UtrUouDU7oQ";
 
@@ -30,7 +31,7 @@ function App() {
       <div className="video-background">
         <div className="VideoContainer">
           {/* TODO:Do Youtube Player Configuration */}
-          {!isVideoLoading && <YoutubePlayer embedID={VIDEO_ID} />}
+          <YoutubePlayer embedID={VIDEO_ID} />
         </div>
       </div>
       <div className="Sidebar">
