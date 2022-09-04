@@ -1,15 +1,13 @@
+import PropTypes from "prop-types";
 import YouTube from "@u-wave/react-youtube";
 import { useEffect, useState } from "react";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { isVideoLoadingAtom, volumeAtom, walkingTypeAtom } from "../../atoms";
 
-function YoutubePlayer(props) {
-  const { embedID } = props;
-
+function YoutubePlayer({ videoId, city, startSeconds, endSeconds }) {
   const setIsVideoLoading = useSetRecoilState(isVideoLoadingAtom);
   const walkingType = useRecoilValue(walkingTypeAtom);
   const volume = useRecoilValue(volumeAtom);
-  const [isPaused, setIsPaused] = useState(false);
   const [playerElement, setPlayerElement] = useState(null);
 
   const onPlayerReady = (event) => {
@@ -56,7 +54,9 @@ function YoutubePlayer(props) {
 
   return (
     <YouTube
-      video={embedID}
+      video={videoId}
+      startSeconds={startSeconds}
+      endSeconds={endSeconds}
       autoplay={true}
       muted={volume === 0 ? true : false}
       controls={false}
@@ -73,9 +73,15 @@ function YoutubePlayer(props) {
       onBuffering={onPlayerBuffering}
       onEnd={onPlayerEnd}
       onPause={onPlayerPause}
-      paused={isPaused}
     />
   );
 }
+
+YoutubePlayer.propTypes = {
+  videoId: PropTypes.string.isRequired,
+  city: PropTypes.string.isRequired,
+  startSeconds: PropTypes.number.isRequired,
+  endSeconds: PropTypes.number.isRequired,
+};
 
 export default YoutubePlayer;

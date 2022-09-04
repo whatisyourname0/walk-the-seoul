@@ -15,15 +15,16 @@ import { ReactComponent as WalkingMan } from "./assets/WalkingMan.svg";
 import { isVideoLoadingAtom, volumeAtom, walkingTypeAtom } from './atoms';
 import Noise from './Components/Noise/Noise';
 import YoutubePlayer from './Components/YoutubePlayer/YoutubePlayer';
-import { WalkingTypes } from './utils/interfaces';
+import { VideoProps, WalkingTypes } from './utils/interfaces';
+import { getRandomVideo, VIDEOLIST } from './utils/videolist';
 
 function App() {
   const isVideoLoading = useRecoilValue<boolean>(isVideoLoadingAtom);
   const [isStreetSoundActive, setIsStreetSoundActive] = useState<boolean>(false);
   const [walkingType, setWalkingType] = useRecoilState<WalkingTypes>(walkingTypeAtom);
   const [volume, setVolume] = useRecoilState<number>(volumeAtom);
+  const [currVideo, setCurrVideo] = useState<VideoProps>(VIDEOLIST[0]);
 
-  const VIDEO_ID = "UtrUouDU7oQ";
   const prevVolume = useRef(0);
 
   const handleVolume = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -37,16 +38,25 @@ function App() {
     } else {
       setVolume(prevVolume.current);
     }
-  }, [isStreetSoundActive])
+  }, [isStreetSoundActive]);
+
+  useEffect(() => {
+    const initVideo = getRandomVideo("all");
+    setCurrVideo(initVideo);
+    console.log(currVideo);
+  }, [])
 
   return (
     <div className="App">
       {isVideoLoading && <Noise />}
-      <div className="TransparentLayer"></div>
       <div className="video-background">
         <div className="VideoContainer">
-          {/* TODO:Do Youtube Player Configuration */}
-          <YoutubePlayer embedID={VIDEO_ID} />
+          <YoutubePlayer
+            videoId={currVideo.videoId}
+            city={currVideo.city}
+            startSeconds={currVideo.startSeconds}
+            endSeconds={currVideo.endSeconds}
+          />
         </div>
       </div>
       <div className="Sidebar">
@@ -135,6 +145,15 @@ function App() {
         >
           <div className="GithubWrapper">
             <FaGithub />
+          </div>
+        </a>
+        <a
+          href={`https://www.youtube.com/watch?v=${currVideo.videoId}`}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <div className="VideoSourceWrapper">
+            <span>Go to Source Video</span>
           </div>
         </a>
       </div>
