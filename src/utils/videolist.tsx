@@ -133,11 +133,11 @@ export const VIDEOLIST: Array<VideoProps> = [
 ];
 
 export const getRandomVideo = (locationQuery: typeof Cities[number] | "all"): VideoProps => {
+  console.log(locationQuery);
   if (locationQuery === "all") {
     return VIDEOLIST[(Math.random() * VIDEOLIST.length) | 0];
   } else {
-    return VIDEOLIST.filter(
-      video => (video.city === locationQuery || video.city.includes(locationQuery))
-    )[(Math.random() * VIDEOLIST.length) | 0];
+    const newVIDEOLIST = VIDEOLIST.filter(video => (video.city === locationQuery || video.city.includes(locationQuery)));
+    return newVIDEOLIST[(Math.random() * newVIDEOLIST.length) | 0];
   }
 }

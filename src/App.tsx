@@ -29,7 +29,11 @@ function App() {
 
   // toggle street sound volume.
   useEffect(() => {
-    isStreetSoundActive ? setVolume(0) : setVolume(prevVolume.current);
+    if (!isStreetSoundActive) {
+      setVolume(0);
+    } else {
+      setVolume(prevVolume.current);
+    }
   }, [isStreetSoundActive]);
 
   // initialize first video.
@@ -44,9 +48,10 @@ function App() {
   }
 
   const handleCityClick = (event: React.MouseEvent<HTMLDivElement>) => {
-    const selectedCity = (event.currentTarget.textContent || "all");
+    const selectedCity = (event.currentTarget.textContent || "");
     //TODO: finish the function.
     const nextVideo = getRandomVideo(selectedCity as typeof Cities[number]);
+    setCurrVideo(nextVideo);
   }
 
   return (
