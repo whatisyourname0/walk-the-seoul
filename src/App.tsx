@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
 
 // Import Icons
@@ -16,7 +16,7 @@ import { isVideoLoadingAtom, volumeAtom, walkingTypeAtom } from './atoms';
 import Noise from './Components/Noise/Noise';
 import YoutubePlayer from './Components/YoutubePlayer/YoutubePlayer';
 import { VideoProps, WalkingTypes } from './utils/interfaces';
-import { getRandomVideo, VIDEOLIST } from './utils/videolist';
+import { Cities, getRandomVideo, VIDEOLIST } from './utils/videolist';
 
 function App() {
   const isVideoLoading = useRecoilValue<boolean>(isVideoLoadingAtom);
@@ -27,24 +27,27 @@ function App() {
 
   const prevVolume = useRef(0);
 
+  // toggle street sound volume.
+  useEffect(() => {
+    isStreetSoundActive ? setVolume(0) : setVolume(prevVolume.current);
+  }, [isStreetSoundActive]);
+
+  // initialize first video.
+  useLayoutEffect(() => {
+    const initVideo = getRandomVideo("all");
+    setCurrVideo(initVideo);
+  }, []);
+
   const handleVolume = (event: React.ChangeEvent<HTMLInputElement>) => {
     setVolume(Number(event.target.value));
     prevVolume.current = volume;
   }
 
-  useEffect(() => {
-    if (!isStreetSoundActive) {
-      setVolume(0);
-    } else {
-      setVolume(prevVolume.current);
-    }
-  }, [isStreetSoundActive]);
-
-  useEffect(() => {
-    const initVideo = getRandomVideo("all");
-    setCurrVideo(initVideo);
-    console.log(currVideo);
-  }, [])
+  const handleCityClick = (event: React.MouseEvent<HTMLDivElement>) => {
+    const selectedCity = (event.currentTarget.textContent || "all");
+    //TODO: finish the function.
+    const nextVideo = getRandomVideo(selectedCity as typeof Cities[number]);
+  }
 
   return (
     <div className="App">
@@ -70,6 +73,28 @@ function App() {
           stroke='#fff'
           className="WalkingManSvg"
         />
+        <div className="CityListContainer">
+          <div className="CitySpan">
+            <span>Scroll down for more cities</span>
+          </div>
+          <div className="CityList">
+            <ol>
+              {Cities.map((city, idx) => {
+                return (
+                  <li>
+                    <div
+                      className="City"
+                      key={idx}
+                      onClick={(event) => handleCityClick(event)}
+                    >
+                      {city}
+                    </div>
+                  </li>
+                )
+              })}
+            </ol>
+          </div>
+        </div>
         <div className="StreetSoundContainer">
           <div className="EnableSoundContainer">
             <span>Street Sound</span>
@@ -149,10 +174,9 @@ function App() {
                 </div>
               </div>
             </IconContext.Provider>
-
           </div>
-
         </div>
+
         <a
           href='https://github.com/whatisyourname0/walk-the-seoul'
           target="_blank"
@@ -162,7 +186,7 @@ function App() {
             <FaGithub />
           </div>
         </a>
-        <a
+        {/* <a
           href={`https://www.youtube.com/watch?v=${currVideo.videoId}`}
           target="_blank"
           rel="noopener noreferrer"
@@ -170,9 +194,9 @@ function App() {
           <div className="VideoSourceWrapper">
             <span>Go to Source Video</span>
           </div>
-        </a>
+        </a> */}
       </div>
-    </div>
+    </div >
   );
 }
 

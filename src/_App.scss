@@ -50,15 +50,21 @@ $sidebar-background-color: rgba(0, 0, 0, 0.5);
   @include size($sidebar-width, 100%);
   margin: 0 auto;
 
+  display: flex;
+  flex-direction: column;
+
   //TODO:Change me!!
   background-color: $sidebar-background-color;
 
   .TitleContainer {
-    @include SidebarPos(20px);
     @include flex-center();
+    width: 100%;
+    margin-top: 15px;
+    margin-bottom: 15px;
 
     font-family: "Montserrat", sans-serif;
     background-color: transparent;
+
     span {
       font-size: 36px;
       font-weight: 400;
@@ -67,12 +73,76 @@ $sidebar-background-color: rgba(0, 0, 0, 0.5);
   }
 
   .WalkingManSvg {
-    @include SidebarPos(70px);
+    width: 100%;
+    margin-bottom: 20px;
+  }
+
+  .CityListContainer {
+    width: 100%;
+
+    margin-bottom: 20px;
+    .CitySpan {
+      @include flex-center();
+      margin: 5px auto;
+
+      span {
+        font-size: 16px;
+        font-weight: 600;
+        color: whitesmoke;
+      }
+    }
+
+    .CityList {
+      width: 100%;
+      height: 200px;
+
+      color: whitesmoke;
+
+      overflow-x: hidden;
+      overflow-y: auto;
+
+      // scrollbar styling
+      &::-webkit-scrollbar {
+        width: 6px;
+      }
+
+      &::-webkit-scrollbar-track {
+        background-color: transparent;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        border-radius: 3px;
+        background-color: gray;
+      }
+
+      &::-webkit-scrollbar-button {
+        width: 0;
+        height: 0;
+      }
+
+      .City {
+        @include flex-center();
+        width: calc(100% - 4px);
+        height: 17px;
+
+        border: 1.5px solid whitesmoke;
+        padding-top: 20px;
+        padding-bottom: 20px;
+
+        background-color: rgba(82, 82, 82, 0.3);
+        transition: background-color 0.2s ease-in-out;
+
+        cursor: pointer;
+
+        &:hover {
+          background-color: rgba(190, 190, 190, 0.6);
+        }
+      }
+    }
   }
 
   .StreetSoundContainer {
     width: 100%;
-    @include SidebarPos(170px);
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -155,7 +225,6 @@ $sidebar-background-color: rgba(0, 0, 0, 0.5);
   }
 
   .WalkingSpeedContainer {
-    @include SidebarPos(300px);
     width: 100%;
     @include flex-center(horizontal);
     gap: 20px;

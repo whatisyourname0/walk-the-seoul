@@ -8,7 +8,7 @@ type City = typeof Cities[number];
 
 export interface VideoProps {
   videoId: string;
-  city: City;
+  city: City | Array<City>;
   time: "Day" | "Night";
   startSeconds: number;
   endSeconds: number;

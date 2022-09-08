@@ -1,8 +1,9 @@
-import PropTypes from "prop-types";
+import PropTypes, { number } from "prop-types";
 import YouTube from "@u-wave/react-youtube";
 import { useEffect, useState } from "react";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { isVideoLoadingAtom, volumeAtom, walkingTypeAtom } from "../../atoms";
+import { Cities } from "../../utils/videolist";
 
 function YoutubePlayer({ videoId, city, startSeconds, endSeconds }) {
   const setIsVideoLoading = useSetRecoilState(isVideoLoadingAtom);
@@ -79,7 +80,10 @@ function YoutubePlayer({ videoId, city, startSeconds, endSeconds }) {
 
 YoutubePlayer.propTypes = {
   videoId: PropTypes.string.isRequired,
-  city: PropTypes.string.isRequired,
+  city: PropTypes.oneOfType([
+    PropTypes.oneOf(Cities).isRequired,
+    PropTypes.arrayOf(PropTypes.oneOf(Cities)).isRequired,
+  ]).isRequired,
   startSeconds: PropTypes.number.isRequired,
   endSeconds: PropTypes.number.isRequired,
 };
