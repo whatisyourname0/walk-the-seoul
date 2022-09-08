@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/walk-the-seoul/static/css/main.ea96948d.css",
+    "main.js": "/walk-the-seoul/static/js/main.730e5642.js",
+    "static/js/787.e87497be.chunk.js": "/walk-the-seoul/static/js/787.e87497be.chunk.js",
+    "static/media/WalkingMan.svg": "/walk-the-seoul/static/media/WalkingMan.d4026ee35325241c1a9176601576471f.svg",
+    "index.html": "/walk-the-seoul/index.html",
+    "main.ea96948d.css.map": "/walk-the-seoul/static/css/main.ea96948d.css.map",
+    "main.730e5642.js.map": "/walk-the-seoul/static/js/main.730e5642.js.map",
+    "787.e87497be.chunk.js.map": "/walk-the-seoul/static/js/787.e87497be.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.ea96948d.css",
+    "static/js/main.730e5642.js"
+  ]
+}
