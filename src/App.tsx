@@ -181,7 +181,15 @@ function App() {
             </IconContext.Provider>
           </div>
         </div>
-
+        <a
+          href={`https://www.youtube.com/watch?v=${currVideo.videoId}`}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <div className="VideoSourceWrapper">
+            <span>Go to Source Video</span>
+          </div>
+        </a>
         <a
           href='https://github.com/whatisyourname0/walk-the-seoul'
           target="_blank"
@@ -191,15 +199,7 @@ function App() {
             <FaGithub />
           </div>
         </a>
-        {/* <a
-          href={`https://www.youtube.com/watch?v=${currVideo.videoId}`}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <div className="VideoSourceWrapper">
-            <span>Go to Source Video</span>
-          </div>
-        </a> */}
+
       </div>
     </div >
   );

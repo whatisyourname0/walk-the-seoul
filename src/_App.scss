@@ -78,7 +78,8 @@ $sidebar-background-color: rgba(0, 0, 0, 0.5);
   }
 
   .CityListContainer {
-    width: 100%;
+    width: 80%;
+    margin: 0 auto;
 
     margin-bottom: 25px;
     .CitySpan {
@@ -135,7 +136,7 @@ $sidebar-background-color: rgba(0, 0, 0, 0.5);
         cursor: pointer;
 
         &:hover {
-          background-color: rgba(190, 190, 190, 0.6);
+          background-color: rgba(190, 190, 190, 0.55);
         }
       }
     }
@@ -287,8 +288,17 @@ $sidebar-background-color: rgba(0, 0, 0, 0.5);
     position: absolute;
     @include SidebarPos(87vh);
     @include flex-center();
-    font-size: 16px;
-    color: whitesmoke;
+
+    span {
+      font-size: 20px;
+      font-weight: 400;
+      color: whitesmoke;
+      transition: color 0.2s ease-in-out;
+      &:hover {
+        font-weight: 500;
+        color: #ff0000;
+      }
+    }
   }
 }
 
