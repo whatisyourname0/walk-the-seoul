@@ -18,7 +18,7 @@ $sidebar-background-color: rgba(0, 0, 0, 0.5);
 .video-background {
   z-index: -100;
   position: absolute;
-  top: -10%;
+  top: -11%;
   right: 0;
   left: 0;
   width: 100vw;
@@ -29,7 +29,7 @@ $sidebar-background-color: rgba(0, 0, 0, 0.5);
   .VideoContainer {
     position: relative;
     pointer-events: none;
-    padding-bottom: 60%;
+    padding-bottom: 65%;
     height: 0;
 
     iframe {
@@ -189,6 +189,18 @@ $sidebar-background-color: rgba(0, 0, 0, 0.5);
       .Nonactive {
         background-color: none;
         filter: brightness(0.15);
+
+        &:hover {
+          filter: brightness(0.3);
+        }
+      }
+
+      .SpeedTooltip {
+        @include flex-center();
+        margin-top: 10px;
+        color: whitesmoke;
+        transition: opacity 0.2s ease-in-out;
+        font-weight: 500;
       }
     }
   }
@@ -214,4 +226,12 @@ $sidebar-background-color: rgba(0, 0, 0, 0.5);
   @include size(100%, 100%);
   background-color: transparent;
   z-index: 1;
+}
+
+.opacity0 {
+  opacity: 0;
+}
+
+.opacity1 {
+  opacity: 1;
 }

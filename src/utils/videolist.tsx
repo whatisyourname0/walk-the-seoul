@@ -1,23 +1,31 @@
 import { VideoProps } from "./interfaces";
 
-export const CITYLIST: Array<string> = [
-  "Jamsil",
-  "Suwon",
-
-]
+export const Cities = [
+  'Jamsil',
+  "Dongmyo",
+] as const;
 
 export const VIDEOLIST: Array<VideoProps> = [
   {
     videoId: "UtrUouDU7oQ",
     city: "Jamsil",
     startSeconds: 100,
-    endSeconds: 4955
+    endSeconds: 4955,
+    time: "Day",
   },
   {
-    videoId: "C-jePeWlHWE",
-    city: "Suwon",
-    startSeconds: 60,
-    endSeconds: 1680
+    videoId: "2BkAzEY0RW8",
+    city: "Jamsil",
+    startSeconds: 90,
+    endSeconds: 2605,
+    time: "Day",
+  },
+  {
+    videoId: "52SSoFBPLso",
+    city: "Dongmyo",
+    startSeconds: 51,
+    endSeconds: 697,
+    time: "Day",
   }
 ];
 

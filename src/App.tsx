@@ -115,23 +115,38 @@ function App() {
             <IconContext.Provider
               value={{ className: "IconStyles" }}
             >
-              <div
-                className={`Icon Walking ${walkingType.value === "Walking" ? `` : `Nonactive`}`}
-                onClick={() => setWalkingType({ value: "Walking" })}
-              >
-                <MdDirectionsWalk />
+              <div>
+                <div
+                  className={`Icon Walking ${walkingType.value === "Walking" ? `` : `Nonactive`}`}
+                  onClick={() => setWalkingType({ value: "Walking" })}
+                >
+                  <MdDirectionsWalk />
+                </div>
+                <div className={`SpeedTooltip ${walkingType.value === "Walking" ? `opacity1` : `opacity0`}`}>
+                  <span>1x</span>
+                </div>
               </div>
-              <div
-                className={`Icon Running ${walkingType.value === "Running" ? `` : `Nonactive`}`}
-                onClick={() => setWalkingType({ value: "Running" })}
-              >
-                <MdOutlineDirectionsRun />
+              <div>
+                <div
+                  className={`Icon Running ${walkingType.value === "Running" ? `` : `Nonactive`}`}
+                  onClick={() => setWalkingType({ value: "Running" })}
+                >
+                  <MdOutlineDirectionsRun />
+                </div>
+                <div className={`SpeedTooltip ${walkingType.value === "Running" ? `opacity1` : `opacity0`}`}>
+                  <span>1.5x</span>
+                </div>
               </div>
-              <div
-                className={`Icon Sprinting ${walkingType.value === "Sprinting" ? `` : `Nonactive`}`}
-                onClick={() => setWalkingType({ value: "Sprinting" })}
-              >
-                <GiRunningNinja />
+              <div>
+                <div
+                  className={`Icon Sprinting ${walkingType.value === "Sprinting" ? `` : `Nonactive`}`}
+                  onClick={() => setWalkingType({ value: "Sprinting" })}
+                >
+                  <GiRunningNinja />
+                </div>
+                <div className={`SpeedTooltip ${walkingType.value === "Sprinting" ? `opacity1` : `opacity0`}`}>
+                  <span>2x</span>
+                </div>
               </div>
             </IconContext.Provider>
 
