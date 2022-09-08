@@ -3,6 +3,9 @@ import { VideoProps } from "./interfaces";
 export const Cities = [
   'Jamsil',
   "Dongmyo",
+  "Myeongdong",
+  "Gangnam",
+  "Euljiro"
 ] as const;
 
 export const VIDEOLIST: Array<VideoProps> = [
@@ -26,6 +29,27 @@ export const VIDEOLIST: Array<VideoProps> = [
     startSeconds: 51,
     endSeconds: 697,
     time: "Day",
+  },
+  {
+    videoId: "qU9rT2yHtOA",
+    city: "Myeongdong",
+    startSeconds: 55,
+    endSeconds: 1220,
+    time: "Night",
+  },
+  {
+    videoId: "X6G1KSfVgXs",
+    city: "Gangnam",
+    startSeconds: 40,
+    endSeconds: 2220,
+    time: "Night",
+  },
+  {
+    videoId: "dMm2jWlRp0k",
+    city: "Euljiro",
+    startSeconds: 90,
+    endSeconds: 1680,
+    time: "Night",
   }
 ];
 
