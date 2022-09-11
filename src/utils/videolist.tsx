@@ -144,7 +144,14 @@ export const VIDEOLIST: Array<VideoProps> = [
     startSeconds: 60,
     endSeconds: 37 * 60 + 20,
     time: "Night",
-  }
+  },
+  {
+    videoId: "cvQ_nu810GE",
+    city: "Gangnam",
+    startSeconds: 150,
+    endSeconds: 45 * 60,
+    time: "Night",
+  },
 ];
 
 export const getRandomVideo = (locationQuery: typeof Cities[number] | "all"): VideoProps => {
