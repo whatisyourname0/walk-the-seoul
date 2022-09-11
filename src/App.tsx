@@ -5,14 +5,14 @@ import { useRecoilState, useRecoilValue } from 'recoil';
 import { IconContext } from 'react-icons';
 import { FaGithub } from "react-icons/fa";
 import { GiRunningNinja } from "react-icons/gi";
-import { MdDirectionsWalk, MdOutlineDirectionsRun } from "react-icons/md";
+import { MdDirectionsWalk, MdOutlineDirectionsRun, MdChevronLeft } from "react-icons/md";
 import { FiVolumeX, FiVolume1, FiVolume2 } from "react-icons/fi";
 
 // Import Styles
 import './_App.scss';
 
 import { ReactComponent as WalkingMan } from "./assets/WalkingMan.svg";
-import { isVideoLoadingAtom, volumeAtom, walkingTypeAtom } from './atoms';
+import { isVideoLoadingAtom, newVideoSignalAtom, volumeAtom, walkingTypeAtom } from './atoms';
 import Noise from './Components/Noise/Noise';
 import YoutubePlayer from './Components/YoutubePlayer/YoutubePlayer';
 import { VideoProps, WalkingTypes } from './utils/interfaces';
@@ -24,6 +24,9 @@ function App() {
   const [walkingType, setWalkingType] = useRecoilState<WalkingTypes>(walkingTypeAtom);
   const [volume, setVolume] = useRecoilState<number>(volumeAtom);
   const [currVideo, setCurrVideo] = useState<VideoProps>(VIDEOLIST[0]);
+  const [newVideoSignal, setNewVideoSignal] = useRecoilState<boolean>(newVideoSignalAtom);
+  const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(true);
+  const [currCity, setCurrCity] = useState<string>("");
 
   const prevVolume = useRef(0);
 
@@ -42,6 +45,12 @@ function App() {
     setCurrVideo(initVideo);
   }, []);
 
+  useLayoutEffect(() => {
+    const nextVideo = getRandomVideo("all");
+    setCurrVideo(nextVideo);
+    setNewVideoSignal(false);
+  }, [newVideoSignal]);
+
   const handleVolume = (event: React.ChangeEvent<HTMLInputElement>) => {
     setVolume(Number(event.target.value));
     prevVolume.current = volume;
@@ -49,9 +58,13 @@ function App() {
 
   const handleCityClick = (event: React.MouseEvent<HTMLDivElement>) => {
     const selectedCity = (event.currentTarget.textContent || "");
-    //TODO: finish the function.
+    setCurrCity(selectedCity);
     const nextVideo = getRandomVideo(selectedCity as typeof Cities[number]);
     setCurrVideo(nextVideo);
+  }
+
+  const sidebarToggle = () => {
+    setIsSidebarOpen((prev) => (!prev));
   }
 
   return (
@@ -67,7 +80,17 @@ function App() {
           />
         </div>
       </div>
-      <div className="Sidebar">
+      <div
+        className={`SidebarToggleButton ${isSidebarOpen ? `Opened ` : `Closed `}`}
+        onClick={sidebarToggle}
+      >
+        <div className="ButtonWrapper">
+          <IconContext.Provider value={{ className: "ChevronIcon" }}>
+            <MdChevronLeft />
+          </IconContext.Provider>
+        </div>
+      </div>
+      <div className={`Sidebar ${isSidebarOpen ? `Opened ` : `Closed `}`}>
         <div className="TitleContainer">
           <span>Walk the Seoul</span>
         </div>
@@ -88,7 +111,7 @@ function App() {
                 return (
                   <li>
                     <div
-                      className="City"
+                      className={`City ${currCity === city ? "Current " : " "}`}
                       key={idx}
                       onClick={(event) => handleCityClick(event)}
                     >

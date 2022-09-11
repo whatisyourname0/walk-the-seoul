@@ -2,6 +2,7 @@
 
 $sidebar-width: 400px;
 $sidebar-background-color: rgba(0, 0, 0, 0.5);
+$sidebar-transition-effect: right 0.2s ease;
 
 @mixin SidebarPos($t) {
   position: absolute;
@@ -42,10 +43,49 @@ $sidebar-background-color: rgba(0, 0, 0, 0.5);
   }
 }
 
+.SidebarToggleButton {
+  position: absolute;
+  top: 50%;
+
+  transition: $sidebar-transition-effect;
+
+  z-index: 100;
+
+  cursor: pointer;
+
+  &.Opened {
+    right: 370px;
+  }
+
+  &.Closed {
+    right: 0px;
+  }
+
+  .ButtonWrapper {
+    padding: 10px;
+
+    background: linear-gradient(
+      90deg,
+      $sidebar-background-color 0 48.5%,
+      rgba(0, 0, 0, 0) 48.5% 100%
+    );
+
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+
+    .ChevronIcon {
+      font-size: 36px;
+      color: whitesmoke;
+      position: relative;
+      right: 6px;
+    }
+  }
+}
+
 .Sidebar {
   position: absolute;
   top: 0;
-  right: 0;
   z-index: 2;
   @include size($sidebar-width, 100%);
   margin: 0 auto;
@@ -55,6 +95,16 @@ $sidebar-background-color: rgba(0, 0, 0, 0.5);
 
   //TODO:Change me!!
   background-color: $sidebar-background-color;
+
+  transition: $sidebar-transition-effect;
+
+  &.Opened {
+    right: 0px;
+  }
+
+  &.Closed {
+    right: -370px;
+  }
 
   .TitleContainer {
     @include flex-center();
@@ -123,12 +173,14 @@ $sidebar-background-color: rgba(0, 0, 0, 0.5);
 
       .City {
         @include flex-center();
-        width: calc(100% - 4px);
+        width: calc(100% - 3px);
         height: 17px;
 
         border: 1.5px solid whitesmoke;
         padding-top: 20px;
         padding-bottom: 20px;
+
+        font-weight: 400;
 
         background-color: rgba(82, 82, 82, 0.3);
         transition: background-color 0.2s ease-in-out;
@@ -137,6 +189,12 @@ $sidebar-background-color: rgba(0, 0, 0, 0.5);
 
         &:hover {
           background-color: rgba(190, 190, 190, 0.55);
+          font-weight: 600;
+        }
+
+        &.Current {
+          background-color: rgba(190, 190, 190, 0.4);
+          font-weight: 600;
         }
       }
     }

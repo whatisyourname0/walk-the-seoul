@@ -15,6 +15,7 @@ export const Cities = [
   "Jongro",
   "Apgujeong",
   "Itaewon",
+  "Hongdae",
 ] as const;
 
 export const VIDEOLIST: Array<VideoProps> = [
@@ -130,10 +131,23 @@ export const VIDEOLIST: Array<VideoProps> = [
     endSeconds: 39 * 60,
     time: "Night",
   },
+  {
+    videoId: "NbmAVjjtDG8",
+    city: "Itaewon",
+    startSeconds: 120,
+    endSeconds: 29 * 60,
+    time: "Night",
+  },
+  {
+    videoId: "yZ3o-njfiBM",
+    city: "Hongdae",
+    startSeconds: 60,
+    endSeconds: 37 * 60 + 20,
+    time: "Night",
+  }
 ];
 
 export const getRandomVideo = (locationQuery: typeof Cities[number] | "all"): VideoProps => {
-  console.log(locationQuery);
   if (locationQuery === "all") {
     return VIDEOLIST[(Math.random() * VIDEOLIST.length) | 0];
   } else {

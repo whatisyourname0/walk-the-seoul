@@ -15,3 +15,8 @@ export const volumeAtom = atom<number>({
   key: "volume",
   default: 0,
 });
+
+export const newVideoSignalAtom = atom<boolean>({
+  key: "newVideoSignal",
+  default: false,
+});

@@ -1,8 +1,13 @@
 import PropTypes, { number } from "prop-types";
 import YouTube from "@u-wave/react-youtube";
 import { useEffect, useState } from "react";
-import { useRecoilValue, useSetRecoilState } from "recoil";
-import { isVideoLoadingAtom, volumeAtom, walkingTypeAtom } from "../../atoms";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
+import {
+  isVideoLoadingAtom,
+  newVideoSignalAtom,
+  volumeAtom,
+  walkingTypeAtom,
+} from "../../atoms";
 import { Cities } from "../../utils/videolist";
 
 function YoutubePlayer({ videoId, city, startSeconds, endSeconds }) {
@@ -10,6 +15,8 @@ function YoutubePlayer({ videoId, city, startSeconds, endSeconds }) {
   const walkingType = useRecoilValue(walkingTypeAtom);
   const volume = useRecoilValue(volumeAtom);
   const [playerElement, setPlayerElement] = useState(null);
+  const [newVideoSignal, setNewVideoSignal] =
+    useRecoilState(newVideoSignalAtom);
 
   const onPlayerReady = (event) => {
     setPlayerElement(event);
@@ -21,6 +28,7 @@ function YoutubePlayer({ videoId, city, startSeconds, endSeconds }) {
 
   const onPlayerEnd = () => {
     setIsVideoLoading(true);
+    setNewVideoSignal(true);
   };
 
   const onPlayerBuffering = () => {
