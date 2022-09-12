@@ -1,16 +1,16 @@
 {
   "files": {
     "main.css": "/walk-the-seoul/static/css/main.83259e6c.css",
-    "main.js": "/walk-the-seoul/static/js/main.6cf13d9f.js",
+    "main.js": "/walk-the-seoul/static/js/main.b828a2ba.js",
     "static/js/787.e87497be.chunk.js": "/walk-the-seoul/static/js/787.e87497be.chunk.js",
     "static/media/WalkingMan.svg": "/walk-the-seoul/static/media/WalkingMan.d4026ee35325241c1a9176601576471f.svg",
     "index.html": "/walk-the-seoul/index.html",
     "main.83259e6c.css.map": "/walk-the-seoul/static/css/main.83259e6c.css.map",
-    "main.6cf13d9f.js.map": "/walk-the-seoul/static/js/main.6cf13d9f.js.map",
+    "main.b828a2ba.js.map": "/walk-the-seoul/static/js/main.b828a2ba.js.map",
     "787.e87497be.chunk.js.map": "/walk-the-seoul/static/js/787.e87497be.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.83259e6c.css",
-    "static/js/main.6cf13d9f.js"
+    "static/js/main.b828a2ba.js"
   ]
 }
