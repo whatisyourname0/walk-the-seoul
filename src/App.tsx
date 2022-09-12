@@ -107,7 +107,8 @@ function App() {
           </div>
           <div className="CityList">
             <ol>
-              {Cities.map((city, idx) => {
+              {/* Don't mutate the original array */}
+              {[...Cities].sort().map((city, idx) => {
                 return (
                   <li>
                     <div

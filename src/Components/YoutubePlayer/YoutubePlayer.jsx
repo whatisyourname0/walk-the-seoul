@@ -1,5 +1,5 @@
-import PropTypes, { number } from "prop-types";
 import YouTube from "@u-wave/react-youtube";
+import PropTypes from "prop-types";
 import { useEffect, useState } from "react";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import {
@@ -66,17 +66,17 @@ function YoutubePlayer({ videoId, city, startSeconds, endSeconds }) {
       video={videoId}
       startSeconds={startSeconds}
       endSeconds={endSeconds}
-      autoplay={true}
-      muted={volume === 0 ? true : false}
-      controls={false}
-      disableKeyboard={true}
+      autoplay={true} // toggle autoplay
+      muted={volume === 0 ? true : false} // mute or do-not mute
+      controls={false} // disable control bar
+      disableKeyboard={true} // disable keyboard shortcuts
       allowFullscreen={false} // Do not display fullscreen button
-      annotations={false}
-      modestBranding={false}
+      annotations={false} // disable annotations
+      modestBranding={false} // disable youtube branding stuffs
       playsInline={false}
       showRelatedVideos={false}
-      playbackRate={1}
-      suggestedQuality="default"
+      playbackRate={1} // playback rate. Controlled by setter func. above
+      suggestedQuality="default" // auto-set quality
       onReady={onPlayerReady}
       onPlaying={onPlayerPlaying}
       onBuffering={onPlayerBuffering}
