@@ -27,3 +27,15 @@
     flex-direction: column;
   }
 }
+
+@mixin mobile-vertical {
+  @media screen and (max-width: 481px) {
+    @content;
+  }
+}
+
+@mixin not-mobile-vertical {
+  @media screen and (min-width: 482px) {
+    @content;
+  }
+}

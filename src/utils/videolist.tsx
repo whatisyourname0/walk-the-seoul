@@ -263,6 +263,20 @@ export const VIDEOLIST: Array<VideoProps> = [
     startSeconds: 5 * 60,
     endSeconds: 44 * 60,
     time: "Day",
+  },
+  {
+    videoId: "1j-lzi3-8Og",
+    city: "Dangsan",
+    startSeconds: 30,
+    endSeconds: 30 * 60,
+    time: "Night",
+  },
+  {
+    videoId: "OvYBdLizBak",
+    city: "Dangsan",
+    startSeconds: 30,
+    endSeconds: 10 * 60 + 40,
+    time: "Day",
   }
 ];
 

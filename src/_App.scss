@@ -3,6 +3,7 @@
 $sidebar-width: 400px;
 $sidebar-background-color: rgba(0, 0, 0, 0.5);
 $sidebar-transition-effect: right 0.2s ease;
+$sidebar-mobile-transition-effect: top 0.2s ease;
 
 @mixin SidebarPos($t) {
   position: absolute;
@@ -24,8 +25,16 @@ $sidebar-transition-effect: right 0.2s ease;
   left: 0;
   width: 100vw;
   height: 140vh;
+  overflow: hidden;
 
   background-color: #000;
+
+  @include mobile-vertical {
+    top: -30%;
+    left: -170%;
+    width: 400%;
+    height: 150%;
+  }
 
   .VideoContainer {
     position: relative;
