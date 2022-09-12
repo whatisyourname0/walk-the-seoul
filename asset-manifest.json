@@ -1,16 +1,16 @@
 {
   "files": {
-    "main.css": "/walk-the-seoul/static/css/main.83259e6c.css",
-    "main.js": "/walk-the-seoul/static/js/main.b828a2ba.js",
+    "main.css": "/walk-the-seoul/static/css/main.d4ab1928.css",
+    "main.js": "/walk-the-seoul/static/js/main.151f52d6.js",
     "static/js/787.e87497be.chunk.js": "/walk-the-seoul/static/js/787.e87497be.chunk.js",
     "static/media/WalkingMan.svg": "/walk-the-seoul/static/media/WalkingMan.d4026ee35325241c1a9176601576471f.svg",
     "index.html": "/walk-the-seoul/index.html",
-    "main.83259e6c.css.map": "/walk-the-seoul/static/css/main.83259e6c.css.map",
-    "main.b828a2ba.js.map": "/walk-the-seoul/static/js/main.b828a2ba.js.map",
+    "main.d4ab1928.css.map": "/walk-the-seoul/static/css/main.d4ab1928.css.map",
+    "main.151f52d6.js.map": "/walk-the-seoul/static/js/main.151f52d6.js.map",
     "787.e87497be.chunk.js.map": "/walk-the-seoul/static/js/787.e87497be.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.83259e6c.css",
-    "static/js/main.b828a2ba.js"
+    "static/css/main.d4ab1928.css",
+    "static/js/main.151f52d6.js"
   ]
 }
