@@ -10,7 +10,7 @@ export const Cities = [
   "Hyehwa",
   "Insadong",
   "Cityhall",
-  "Gwanghwamoon",
+  "Gwanghwamun",
   "Dongdaemun",
   "Jongro",
   "Apgujeong",
@@ -91,21 +91,21 @@ export const VIDEOLIST: Array<VideoProps> = [
   },
   {
     videoId: "H_-l8TvKqtI",
-    city: ["Myeongdong", "Cityhall", "Gwanghwamoon"],
+    city: ["Myeongdong", "Cityhall", "Gwanghwamun"],
     startSeconds: 100,
     endSeconds: 2214,
     time: "Day",
   },
   {
     videoId: "QSlhItqvhHs",
-    city: "Gwanghwamoon",
+    city: "Gwanghwamun",
     startSeconds: 50,
     endSeconds: 1763,
     time: "Day",
   },
   {
     videoId: "dUSKiFee20o",
-    city: ["Gwanghwamoon", "Dongdaemun", "Jongro"],
+    city: ["Gwanghwamun", "Dongdaemun", "Jongro"],
     startSeconds: 30,
     endSeconds: 32 * 60,
     time: "Day"
@@ -260,7 +260,7 @@ export const VIDEOLIST: Array<VideoProps> = [
   {
     videoId: "VXbRGz1SpVo",
     city: ["Ttuksum", "Hangang"],
-    startSeconds: 2 * 60,
+    startSeconds: 5 * 60,
     endSeconds: 44 * 60,
     time: "Day",
   }

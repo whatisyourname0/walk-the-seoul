@@ -91,139 +91,142 @@ function App() {
         </div>
       </div>
       <div className={`Sidebar ${isSidebarOpen ? `Opened ` : `Closed `}`}>
-        <div className="TitleContainer">
-          <span>Walk the Seoul</span>
-        </div>
-        <WalkingMan
-          width="70"
-          height="70"
-          fill='#fff'
-          stroke='#fff'
-          className="WalkingManSvg"
-        />
-        <div className="CityListContainer">
-          <div className="CitySpan">
-            <span>Scroll down for more cities</span>
+        <div>
+          <div className="TitleContainer">
+            <span>Walk the Seoul</span>
           </div>
-          <div className="CityList">
-            <ol>
-              {/* Don't mutate the original array */}
-              {[...Cities].sort().map((city, idx) => {
-                return (
-                  <li>
-                    <div
-                      className={`City ${currCity === city ? "Current " : " "}`}
-                      key={idx}
-                      onClick={(event) => handleCityClick(event)}
-                    >
-                      {city}
-                    </div>
-                  </li>
-                )
-              })}
-            </ol>
-          </div>
-        </div>
-        <div className="StreetSoundContainer">
-          <div className="EnableSoundContainer">
-            <span>Street Sound</span>
-            <div
-              className={`ToggleButton ${isStreetSoundActive ? "active" : ""}`}
-              onClick={() => { setIsStreetSoundActive((prev) => !prev); }}
-            >
-              {isStreetSoundActive ? "ON" : "OFF"}
+          <WalkingMan
+            width="70"
+            height="70"
+            fill='#fff'
+            stroke='#fff'
+            className="WalkingManSvg"
+          />
+          <div className="CityListContainer">
+            <div className="CitySpan">
+              <span>Scroll down for more cities</span>
+            </div>
+            <div className="CityList">
+              <ol>
+                {/* Don't mutate the original array */}
+                {[...Cities].sort().map((city, idx) => {
+                  return (
+                    <li>
+                      <div
+                        className={`City ${currCity === city ? "Current " : " "}`}
+                        key={idx}
+                        onClick={(event) => handleCityClick(event)}
+                      >
+                        {city}
+                      </div>
+                    </li>
+                  )
+                })}
+              </ol>
             </div>
           </div>
-          <div
-            className="SoundbarContainer"
-            style={{
-              visibility: isStreetSoundActive ? "visible" : "hidden",
-              opacity: isStreetSoundActive ? "1" : "0",
-              transition: "visibility 0.2s ease-in-out, opacity 0.2s ease-in-out",
-            }}
-          >
-            <div className="SoundIconContainer">
-              <IconContext.Provider value={{ className: "SoundIcon" }}>
-                {volume === 0 ? <FiVolumeX /> :
-                  volume < 50 ? <FiVolume1 /> :
-                    <FiVolume2 />}
+          <div className="StreetSoundContainer">
+            <div className="EnableSoundContainer">
+              <span>Street Sound</span>
+              <div
+                className={`ToggleButton ${isStreetSoundActive ? "active" : ""}`}
+                onClick={() => { setIsStreetSoundActive((prev) => !prev); }}
+              >
+                {isStreetSoundActive ? "ON" : "OFF"}
+              </div>
+            </div>
+            <div
+              className="SoundbarContainer"
+              style={{
+                visibility: isStreetSoundActive ? "visible" : "hidden",
+                opacity: isStreetSoundActive ? "1" : "0",
+                transition: "visibility 0.2s ease-in-out, opacity 0.2s ease-in-out",
+              }}
+            >
+              <div className="SoundIconContainer">
+                <IconContext.Provider value={{ className: "SoundIcon" }}>
+                  {volume === 0 ? <FiVolumeX /> :
+                    volume < 50 ? <FiVolume1 /> :
+                      <FiVolume2 />}
+                </IconContext.Provider>
+              </div>
+              <input
+                type="range"
+                name="volume"
+                id="volume"
+                min="0"
+                max="100"
+                step="1"
+                defaultValue={0}
+                onChange={handleVolume}
+              />
+            </div>
+          </div>
+          <div className="WalkingSpeedContainer">
+            <div className="WalkingSpeedSpanContainer">
+              <span>Walking Speed</span>
+            </div>
+            <div className="IconContainer">
+              <IconContext.Provider
+                value={{ className: "IconStyles" }}
+              >
+                <div>
+                  <div
+                    className={`Icon Walking ${walkingType.value === "Walking" ? `` : `Nonactive`}`}
+                    onClick={() => setWalkingType({ value: "Walking" })}
+                  >
+                    <MdDirectionsWalk />
+                  </div>
+                  <div className={`SpeedTooltip ${walkingType.value === "Walking" ? `opacity1` : `opacity0`}`}>
+                    <span>1x</span>
+                  </div>
+                </div>
+                <div>
+                  <div
+                    className={`Icon Running ${walkingType.value === "Running" ? `` : `Nonactive`}`}
+                    onClick={() => setWalkingType({ value: "Running" })}
+                  >
+                    <MdOutlineDirectionsRun />
+                  </div>
+                  <div className={`SpeedTooltip ${walkingType.value === "Running" ? `opacity1` : `opacity0`}`}>
+                    <span>1.5x</span>
+                  </div>
+                </div>
+                <div>
+                  <div
+                    className={`Icon Sprinting ${walkingType.value === "Sprinting" ? `` : `Nonactive`}`}
+                    onClick={() => setWalkingType({ value: "Sprinting" })}
+                  >
+                    <GiRunningNinja />
+                  </div>
+                  <div className={`SpeedTooltip ${walkingType.value === "Sprinting" ? `opacity1` : `opacity0`}`}>
+                    <span>2x</span>
+                  </div>
+                </div>
               </IconContext.Provider>
             </div>
-            <input
-              type="range"
-              name="volume"
-              id="volume"
-              min="0"
-              max="100"
-              step="1"
-              defaultValue={0}
-              onChange={handleVolume}
-            />
           </div>
         </div>
-        <div className="WalkingSpeedContainer">
-          <div className="WalkingSpeedSpanContainer">
-            <span>Walking Speed</span>
-          </div>
-          <div className="IconContainer">
-            <IconContext.Provider
-              value={{ className: "IconStyles" }}
-            >
-              <div>
-                <div
-                  className={`Icon Walking ${walkingType.value === "Walking" ? `` : `Nonactive`}`}
-                  onClick={() => setWalkingType({ value: "Walking" })}
-                >
-                  <MdDirectionsWalk />
-                </div>
-                <div className={`SpeedTooltip ${walkingType.value === "Walking" ? `opacity1` : `opacity0`}`}>
-                  <span>1x</span>
-                </div>
-              </div>
-              <div>
-                <div
-                  className={`Icon Running ${walkingType.value === "Running" ? `` : `Nonactive`}`}
-                  onClick={() => setWalkingType({ value: "Running" })}
-                >
-                  <MdOutlineDirectionsRun />
-                </div>
-                <div className={`SpeedTooltip ${walkingType.value === "Running" ? `opacity1` : `opacity0`}`}>
-                  <span>1.5x</span>
-                </div>
-              </div>
-              <div>
-                <div
-                  className={`Icon Sprinting ${walkingType.value === "Sprinting" ? `` : `Nonactive`}`}
-                  onClick={() => setWalkingType({ value: "Sprinting" })}
-                >
-                  <GiRunningNinja />
-                </div>
-                <div className={`SpeedTooltip ${walkingType.value === "Sprinting" ? `opacity1` : `opacity0`}`}>
-                  <span>2x</span>
-                </div>
-              </div>
-            </IconContext.Provider>
-          </div>
+        <div>
+          <a
+            href={`https://www.youtube.com/watch?v=${currVideo.videoId}`}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <div className="VideoSourceWrapper">
+              <span>Go to Source Video</span>
+            </div>
+          </a>
+          <a
+            href='https://github.com/whatisyourname0/walk-the-seoul'
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <div className="GithubWrapper">
+              <FaGithub />
+            </div>
+          </a>
         </div>
-        <a
-          href={`https://www.youtube.com/watch?v=${currVideo.videoId}`}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <div className="VideoSourceWrapper">
-            <span>Go to Source Video</span>
-          </div>
-        </a>
-        <a
-          href='https://github.com/whatisyourname0/walk-the-seoul'
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <div className="GithubWrapper">
-            <FaGithub />
-          </div>
-        </a>
-
       </div>
     </div >
   );

@@ -86,17 +86,22 @@ $sidebar-transition-effect: right 0.2s ease;
 .Sidebar {
   position: absolute;
   top: 0;
+  height: 100%;
   z-index: 2;
   @include size($sidebar-width, 100%);
   margin: 0 auto;
 
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
 
   //TODO:Change me!!
   background-color: $sidebar-background-color;
 
   transition: $sidebar-transition-effect;
+
+  overflow-y: auto;
+  gap: 50px;
 
   &.Opened {
     right: 0px;
@@ -335,17 +340,16 @@ $sidebar-transition-effect: right 0.2s ease;
   }
 
   .GithubWrapper {
-    position: absolute;
-    @include SidebarPos(92vh);
     @include flex-center();
+    margin-bottom: 20px;
+
     font-size: 32px;
     color: whitesmoke;
   }
 
   .VideoSourceWrapper {
-    position: absolute;
-    @include SidebarPos(87vh);
     @include flex-center();
+    margin-bottom: 30px;
 
     span {
       font-size: 20px;
