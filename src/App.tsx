@@ -18,6 +18,7 @@ import YoutubePlayer from './Components/YoutubePlayer/YoutubePlayer';
 import { VideoProps, WalkingTypes } from './utils/interfaces';
 import { Cities, getRandomVideo, VIDEOLIST } from './utils/videolist';
 import useMediaQuery from './hooks/useMediaQuery';
+import MobileFooter from './Components/MobileFooter/MobileFooter';
 
 function App() {
 
@@ -235,7 +236,7 @@ function App() {
             </a>
           </div>
         </div>
-      ) : <div></div>}
+      ) : <MobileFooter />}
     </div >
   );
 }
