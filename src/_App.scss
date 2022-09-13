@@ -2,8 +2,9 @@
 
 $sidebar-width: 400px;
 $sidebar-background-color: rgba(0, 0, 0, 0.5);
-$sidebar-transition-effect: right 0.2s ease;
-$sidebar-mobile-transition-effect: top 0.2s ease;
+$sidebar-transition-effect: right 0.75s ease-out;
+$sidebar-mobile-transition-effect: top 0.75s ease-out;
+$sidebar-chevron-transition-effect: transform 0.75s ease-out;
 
 @mixin SidebarPos($t) {
   position: absolute;
@@ -87,8 +88,87 @@ $sidebar-mobile-transition-effect: top 0.2s ease;
       font-size: 36px;
       color: whitesmoke;
       position: relative;
-      right: 6px;
+      right: 12px;
+
+      transition: $sidebar-chevron-transition-effect;
+
+      &.Opened {
+        transform: rotateY(180deg);
+      }
+
+      &.Closed {
+        transform: rotateY(0deg);
+      }
     }
+  }
+}
+
+.QualitySettingsButtonContainer {
+  position: absolute;
+  left: 15px;
+  top: 15px;
+
+  z-index: 2;
+
+  .QualitySettingsIcon {
+    font-size: 36px;
+    color: whitesmoke;
+    transform: rotate(0deg);
+
+    transition: transform 0.2s ease-in-out;
+
+    cursor: pointer;
+
+    &:hover {
+      transform: rotate(360deg);
+
+      ~ .QualitySettingsTooltip {
+        visibility: visible;
+        opacity: 0.9;
+        transform: scale(1);
+      }
+    }
+  }
+
+  .QualitySettingsTooltip {
+    background-color: rgba(0, 0, 0, 0.9);
+    border-radius: 5px;
+    margin-top: 5px;
+    padding: 8px;
+    padding-bottom: 10px;
+
+    visibility: none;
+    opacity: 0;
+
+    transform-origin: top left;
+    transform: scale(0.1);
+
+    transition: opacity 0.15s ease-in-out, transform 0.15s ease-in-out;
+
+    span {
+      font-size: 12px;
+      color: whitesmoke;
+    }
+  }
+}
+
+.QualitySettingsRadioContainer {
+  position: absolute;
+  top: -50%;
+  left: 60px;
+  background-color: whitesmoke;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  z-index: 3;
+
+  .QualitySettingsOption {
+    width: 100%;
+    display: flex;
+    align-items: flex-start;
   }
 }
 
@@ -111,6 +191,8 @@ $sidebar-mobile-transition-effect: top 0.2s ease;
 
   overflow-y: auto;
   gap: 50px;
+
+  @include custom-scrollbar(#ffffffa0);
 
   &.Opened {
     right: 0px;
@@ -166,24 +248,7 @@ $sidebar-mobile-transition-effect: top 0.2s ease;
       overflow-x: hidden;
       overflow-y: auto;
 
-      // scrollbar styling
-      &::-webkit-scrollbar {
-        width: 6px;
-      }
-
-      &::-webkit-scrollbar-track {
-        background-color: transparent;
-      }
-
-      &::-webkit-scrollbar-thumb {
-        border-radius: 3px;
-        background-color: gray;
-      }
-
-      &::-webkit-scrollbar-button {
-        width: 0;
-        height: 0;
-      }
+      @include custom-scrollbar(#ffffffa0);
 
       .City {
         @include flex-center();

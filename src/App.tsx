@@ -7,12 +7,13 @@ import { FaGithub } from "react-icons/fa";
 import { FiVolume1, FiVolume2, FiVolumeX } from "react-icons/fi";
 import { GiRunningNinja } from "react-icons/gi";
 import { MdChevronLeft, MdDirectionsWalk, MdOutlineDirectionsRun } from "react-icons/md";
+import { IoSettingsSharp } from "react-icons/io5";
 
 // Import Styles
 import './_App.scss';
 
 import { ReactComponent as WalkingMan } from "./assets/WalkingMan.svg";
-import { isVideoLoadingAtom, newVideoSignalAtom, volumeAtom, walkingTypeAtom } from './atoms';
+import { currentQualityAtom, isVideoLoadingAtom, newVideoSignalAtom, qualitySettingsOptionAtom, volumeAtom, walkingTypeAtom } from './atoms';
 import Noise from './Components/Noise/Noise';
 import YoutubePlayer from './Components/YoutubePlayer/YoutubePlayer';
 import { VideoProps, WalkingTypes } from './utils/interfaces';
@@ -30,6 +31,9 @@ function App() {
   const [newVideoSignal, setNewVideoSignal] = useRecoilState<boolean>(newVideoSignalAtom);
   const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(true);
   const [currCity, setCurrCity] = useState<string>("");
+  const [isSettingsOpen, setIsSettingsOpen] = useState<boolean>(false);
+  const qualitySettingsOption = useRecoilValue<Array<any>>(qualitySettingsOptionAtom);
+  const [currentQuality, setCurrentQuality] = useRecoilState(currentQualityAtom);
 
   const prevVolume = useRef(0);
 
@@ -64,7 +68,6 @@ function App() {
   const handleCityClick = (event: React.MouseEvent<HTMLDivElement>) => {
     const selectedCity = (event.currentTarget.textContent || "");
     setCurrCity(selectedCity);
-    console.log(event);
     const nextVideo = getRandomVideo(selectedCity as typeof Cities[number]);
     setCurrVideo(nextVideo);
   }
@@ -86,13 +89,53 @@ function App() {
           />
         </div>
       </div>
+      <div
+        className="QualitySettingsButtonContainer"
+        onClick={() => { setIsSettingsOpen((prev) => (!prev)); }}
+      >
+        <IconContext.Provider
+          value={{ className: "QualitySettingsIcon" }}
+        >
+          <IoSettingsSharp />
+          <div className="QualitySettingsTooltip">
+            <span>Video Quality settings</span>
+          </div>
+        </IconContext.Provider>
+      </div>
+      {/* TODO: Finish me! */}
+      <div
+        className="QualitySettingsRadioContainer"
+        style={{
+          top: isSettingsOpen ? "15px" : "-50%",
+          transition: "top 0.2s ease-out",
+        }}
+      >
+        {qualitySettingsOption.map((value) => {
+          return (
+            <div className="QualitySettingsOption">
+              <ul>
+                <input
+                  type="radio"
+                  name='quality'
+                  id={value}
+                  value={value}
+                  checked={value === currentQuality}
+                />
+                <label>{value}</label>
+              </ul>
+            </div>
+          );
+        })}
+      </div>
       {!isMobileVertical &&
         (<div
           className={`SidebarToggleButton ${isSidebarOpen ? `Opened ` : `Closed `}`}
           onClick={sidebarToggle}
         >
           <div className="ButtonWrapper">
-            <IconContext.Provider value={{ className: "ChevronIcon" }}>
+            <IconContext.Provider value={{
+              className: `ChevronIcon ${isSidebarOpen ? `Opened ` : `Closed `}`
+            }}>
               <MdChevronLeft />
             </IconContext.Provider>
           </div>

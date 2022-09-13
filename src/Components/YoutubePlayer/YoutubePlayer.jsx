@@ -3,11 +3,14 @@ import PropTypes from "prop-types";
 import { useEffect, useState } from "react";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import {
+  currentQualityAtom,
   isVideoLoadingAtom,
   newVideoSignalAtom,
+  qualitySettingsOptionAtom,
   volumeAtom,
   walkingTypeAtom,
 } from "../../atoms";
+import { parseQuality } from "../../utils/misc";
 import { Cities } from "../../utils/videolist";
 
 function YoutubePlayer({ videoId, city, startSeconds, endSeconds }) {
@@ -15,8 +18,10 @@ function YoutubePlayer({ videoId, city, startSeconds, endSeconds }) {
   const walkingType = useRecoilValue(walkingTypeAtom);
   const volume = useRecoilValue(volumeAtom);
   const [playerElement, setPlayerElement] = useState(null);
-  const [newVideoSignal, setNewVideoSignal] =
-    useRecoilState(newVideoSignalAtom);
+  const setNewVideoSignal = useSetRecoilState(newVideoSignalAtom);
+  const setQualitySettingsOption = useSetRecoilState(qualitySettingsOptionAtom);
+  const [currentQuality, setCurrentQuality] =
+    useRecoilState(currentQualityAtom);
 
   const onPlayerReady = (event) => {
     setPlayerElement(event);
@@ -37,6 +42,25 @@ function YoutubePlayer({ videoId, city, startSeconds, endSeconds }) {
 
   const onPlayerPlaying = () => {
     setIsVideoLoading(false);
+    if (playerElement) {
+      const player = playerElement.target;
+
+      const setQualityArray = () => {
+        const qualitySettingsArray = player.getAvailableQualityLevels();
+        const newArray = qualitySettingsArray.map((value) => {
+          return parseQuality(value);
+        });
+        setQualitySettingsOption(newArray);
+      };
+
+      const setQuality = () => {
+        const getCurQuality = player.getPlaybackQuality();
+        setCurrentQuality(parseQuality(getCurQuality));
+      };
+
+      setQualityArray();
+      setQuality();
+    }
   };
 
   // set video speed
