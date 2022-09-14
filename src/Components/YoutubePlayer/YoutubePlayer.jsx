@@ -64,19 +64,6 @@ function YoutubePlayer({ videoId, city, startSeconds, endSeconds }) {
       setQuality();
     }
   };
-
-  //FIXME: It's not working
-  const onPlayerStateChange = () => {
-    console.log("Player State Changed!");
-    if (playerElement) {
-      const player = playerElement.target;
-      const youtubeState = player.getPlayerState();
-      if (youtubeState === 3) {
-        player.setPlaybackQuality(parseQualityToYoutube(currentQuality));
-      }
-    }
-  };
-
   // set video speed
   useEffect(() => {
     if (playerElement) {
@@ -105,7 +92,11 @@ function YoutubePlayer({ videoId, city, startSeconds, endSeconds }) {
     if (playerElement) {
       const player = playerElement.target;
       const YoutubeQuality = parseQualityToYoutube(currentQuality);
+      const currentTime = player.getCurrentTime();
+      player.pauseVideo();
       player.setPlaybackQuality(YoutubeQuality);
+      player.seekTo(currentTime);
+      player.playVideo();
     }
   }, [currentQuality]);
 
@@ -124,14 +115,11 @@ function YoutubePlayer({ videoId, city, startSeconds, endSeconds }) {
       playsInline={false}
       showRelatedVideos={false}
       playbackRate={1} // playback rate. Controlled by setter func. above
-      //FIXME: Why quality not change?
-      suggestedQuality={parseQualityToYoutube(currentQuality)}
       onReady={onPlayerReady}
       onPlaying={onPlayerPlaying}
       onBuffering={onPlayerBuffering}
       onEnd={onPlayerEnd}
       onPause={onPlayerPause}
-      onStateChange={onPlayerStateChange}
     />
   );
 }

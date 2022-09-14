@@ -111,10 +111,15 @@ function App() {
             }}
           >
             <span>Video Quality settings</span>
+            <br /><br />
+            <span>Unfortunately, </span>
+            <br></br>
+            <span>Youtube disabled </span>
+            <br></br>
+            <span>downgrading quality :(</span>
           </div>
         </IconContext.Provider>
       </div>
-      {/* TODO: Finish me! */}
       <div
         className="QualitySettingsRadioContainer"
         style={{
@@ -122,7 +127,9 @@ function App() {
           transition: "top 0.2s ease-in-out",
         }}
       >
-        {qualitySettingsOption.map((value) => {
+        {qualitySettingsOption.filter((value) => {
+          return value === "Auto Select" || (Number(value.replace("p", "") >= Number(currentQuality.replace("p", ""))))
+        }).map((value) => {
           return (
             <div className="QualitySettingsOption">
               <label className='radioButton'>

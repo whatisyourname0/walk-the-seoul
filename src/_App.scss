@@ -148,6 +148,9 @@ $sidebar-chevron-transition-effect: transform 0.75s ease-out;
     span {
       font-size: 12px;
       color: whitesmoke;
+      &:first-child {
+        font-size: 16px;
+      }
     }
   }
 }
@@ -272,6 +275,11 @@ $sidebar-chevron-transition-effect: transform 0.75s ease-out;
         }
       }
     }
+  }
+
+  &:last-child {
+    width: 100%;
+    padding-top: 20px;
   }
 }
 
