@@ -172,38 +172,104 @@ $sidebar-chevron-transition-effect: transform 0.75s ease-out;
     width: 100%;
     display: flex;
     align-items: flex-start;
-    padding: 2px 0;
-    padding-left: 10px;
+    padding-left: 15px;
 
-    span {
+    $radioSize: 15px;
+    $radioBorder: #d1d7e3;
+    $radioActive: #13243d;
+
+    .radioButton {
+      margin: 8px 0;
+      display: block;
       cursor: pointer;
-      font-weight: 500;
+      input {
+        display: none;
+        & + span {
+          line-height: $radioSize;
+          height: $radioSize;
+          padding-left: $radioSize;
+          display: block;
+          position: relative;
+          &:not(:empty) {
+            padding-left: $radioSize + 8;
+          }
+          &:before,
+          &:after {
+            content: "";
+            width: $radioSize;
+            height: $radioSize;
+            display: block;
+            border-radius: 50%;
+            left: 0;
+            top: 0;
+            position: absolute;
+          }
+          &:before {
+            background: $radioBorder;
+            transition: background 0.2s ease,
+              transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 2);
+          }
+          &:after {
+            background: #fff;
+            transform: scale(0.78);
+            transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.4);
+          }
+        }
+        &:checked + span {
+          &:before {
+            transform: scale(1.04);
+            background: $radioActive;
+          }
+          &:after {
+            transform: scale(0.4);
+            transition: transform 0.3s ease;
+          }
+        }
+      }
+      &:hover {
+        input {
+          & + span {
+            &:before {
+              transform: scale(0.92);
+            }
+            &:after {
+              transform: scale(0.74);
+            }
+          }
+          &:checked + span {
+            &:after {
+              transform: scale(0.4);
+            }
+          }
+        }
+      }
     }
 
-    input {
-      position: relative;
-      margin: 0;
-      margin-right: 10px;
-      width: 1em;
-
-      appearance: none;
-      font-size: inherit;
-      color: inherit;
-      outline: none;
-      transition: 0.3s ease-out;
-
-      //TODO: Finish me!
-      &::after {
-        content: "◯";
-        transform: scale(0.75);
-        display: inline-block;
-        text-align: center;
-        width: 1em;
-        cursor: pointer;
-      }
-
-      &:checked::after {
-        content: "⚫";
+    // Center & twitter
+    body {
+      min-height: 100vh;
+      font-family: Roboto, Arial;
+      color: #adafb6;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      .twitter {
+        position: fixed;
+        display: block;
+        right: 24px;
+        bottom: 24px;
+        opacity: 0.5;
+        color: #212533;
+        text-decoration: none;
+        font-weight: 500;
+        transition: all 0.4s ease;
+        &:hover {
+          opacity: 1;
+        }
+        img {
+          display: block;
+          height: 36px;
+        }
       }
     }
   }

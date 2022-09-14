@@ -10,7 +10,7 @@ import {
   volumeAtom,
   walkingTypeAtom,
 } from "../../atoms";
-import { parseQuality } from "../../utils/misc";
+import { parseQualityToYoutube, parseYoutubeToQuality } from "../../utils/misc";
 import { Cities } from "../../utils/videolist";
 
 function YoutubePlayer({ videoId, city, startSeconds, endSeconds }) {
@@ -25,6 +25,8 @@ function YoutubePlayer({ videoId, city, startSeconds, endSeconds }) {
 
   const onPlayerReady = (event) => {
     setPlayerElement(event);
+    const player = playerElement.target;
+    player.setPlaybackQuality(parseQualityToYoutube(currentQuality));
   };
 
   const onPlayerPause = () => {
@@ -48,18 +50,30 @@ function YoutubePlayer({ videoId, city, startSeconds, endSeconds }) {
       const setQualityArray = () => {
         const qualitySettingsArray = player.getAvailableQualityLevels();
         const newArray = qualitySettingsArray.map((value) => {
-          return parseQuality(value);
+          return parseYoutubeToQuality(value);
         });
         setQualitySettingsOption(newArray);
       };
 
       const setQuality = () => {
         const getCurQuality = player.getPlaybackQuality();
-        setCurrentQuality(parseQuality(getCurQuality));
+        setCurrentQuality(parseYoutubeToQuality(getCurQuality));
       };
 
       setQualityArray();
       setQuality();
+    }
+  };
+
+  //FIXME: It's not working
+  const onPlayerStateChange = () => {
+    console.log("Player State Changed!");
+    if (playerElement) {
+      const player = playerElement.target;
+      const youtubeState = player.getPlayerState();
+      if (youtubeState === 3) {
+        player.setPlaybackQuality(parseQualityToYoutube(currentQuality));
+      }
     }
   };
 
@@ -85,6 +99,16 @@ function YoutubePlayer({ videoId, city, startSeconds, endSeconds }) {
     }
   }, [volume]);
 
+  // set video quality
+  //FIXME: Why quality not change?
+  useEffect(() => {
+    if (playerElement) {
+      const player = playerElement.target;
+      const YoutubeQuality = parseQualityToYoutube(currentQuality);
+      player.setPlaybackQuality(YoutubeQuality);
+    }
+  }, [currentQuality]);
+
   return (
     <YouTube
       video={videoId}
@@ -100,12 +124,14 @@ function YoutubePlayer({ videoId, city, startSeconds, endSeconds }) {
       playsInline={false}
       showRelatedVideos={false}
       playbackRate={1} // playback rate. Controlled by setter func. above
-      suggestedQuality="default" // auto-set quality
+      //FIXME: Why quality not change?
+      suggestedQuality={parseQualityToYoutube(currentQuality)}
       onReady={onPlayerReady}
       onPlaying={onPlayerPlaying}
       onBuffering={onPlayerBuffering}
       onEnd={onPlayerEnd}
       onPause={onPlayerPause}
+      onStateChange={onPlayerStateChange}
     />
   );
 }

@@ -23,7 +23,7 @@ export const newVideoSignalAtom = atom<boolean>({
 
 export const currentQualityAtom = atom<string>({
   key: "currentQuality",
-  default: "",
+  default: "highres",
 });
 
 export const qualitySettingsOptionAtom = atom<Array<any>>({

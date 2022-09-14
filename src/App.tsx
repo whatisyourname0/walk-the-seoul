@@ -77,6 +77,12 @@ function App() {
     setIsSidebarOpen((prev) => (!prev));
   }
 
+  const handleQualityRadioClick = (event: React.MouseEvent<HTMLInputElement>) => {
+    if (!isVideoLoading) {
+      setCurrentQuality(event.currentTarget.value);
+    }
+  }
+
   return (
     <div className="App">
       {isVideoLoading && <Noise />}
@@ -113,19 +119,20 @@ function App() {
         className="QualitySettingsRadioContainer"
         style={{
           top: isSettingsOpen ? "15px" : "-50%",
-          transition: "top 0.2s ease-out",
+          transition: "top 0.2s ease-in-out",
         }}
       >
         {qualitySettingsOption.map((value) => {
           return (
             <div className="QualitySettingsOption">
-              <label>
+              <label className='radioButton'>
                 <input
                   type="radio"
                   name='quality'
                   id={value}
                   value={value}
                   checked={value === currentQuality}
+                  onClick={handleQualityRadioClick}
                 />
                 <span>{value}</span>
               </label>
