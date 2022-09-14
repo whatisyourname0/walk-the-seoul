@@ -70,6 +70,7 @@ function App() {
     setCurrCity(selectedCity);
     const nextVideo = getRandomVideo(selectedCity as typeof Cities[number]);
     setCurrVideo(nextVideo);
+    setIsSettingsOpen(false);
   }
 
   const sidebarToggle = () => {
@@ -97,7 +98,12 @@ function App() {
           value={{ className: "QualitySettingsIcon" }}
         >
           <IoSettingsSharp />
-          <div className="QualitySettingsTooltip">
+          <div
+            className="QualitySettingsTooltip"
+            style={{
+              opacity: isSettingsOpen ? "0" : "0.9",
+            }}
+          >
             <span>Video Quality settings</span>
           </div>
         </IconContext.Provider>
@@ -113,7 +119,7 @@ function App() {
         {qualitySettingsOption.map((value) => {
           return (
             <div className="QualitySettingsOption">
-              <ul>
+              <label>
                 <input
                   type="radio"
                   name='quality'
@@ -121,8 +127,8 @@ function App() {
                   value={value}
                   checked={value === currentQuality}
                 />
-                <label>{value}</label>
-              </ul>
+                <span>{value}</span>
+              </label>
             </div>
           );
         })}

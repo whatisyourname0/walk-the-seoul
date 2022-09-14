@@ -260,7 +260,7 @@ export const VIDEOLIST: Array<VideoProps> = [
   {
     videoId: "VXbRGz1SpVo",
     city: ["Ttuksum", "Hangang"],
-    startSeconds: 5 * 60,
+    startSeconds: 10 * 60,
     endSeconds: 44 * 60,
     time: "Day",
   },
