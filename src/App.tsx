@@ -120,7 +120,7 @@ function App() {
           </div>
         </IconContext.Provider>
       </div>
-      <div
+      {/* <div
         className="QualitySettingsRadioContainer"
         style={{
           top: isSettingsOpen ? "15px" : "-50%",
@@ -146,7 +146,7 @@ function App() {
             </div>
           );
         })}
-      </div>
+      </div> */}
       {!isMobileVertical &&
         (<div
           className={`SidebarToggleButton ${isSidebarOpen ? `Opened ` : `Closed `}`}

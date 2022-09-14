@@ -87,7 +87,6 @@ function YoutubePlayer({ videoId, city, startSeconds, endSeconds }) {
   }, [volume]);
 
   // set video quality
-  //FIXME: Why quality not change?
   useEffect(() => {
     if (playerElement) {
       const player = playerElement.target;
