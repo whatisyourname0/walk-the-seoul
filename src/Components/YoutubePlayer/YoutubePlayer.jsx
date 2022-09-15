@@ -1,16 +1,13 @@
 import YouTube from "@u-wave/react-youtube";
 import PropTypes from "prop-types";
 import { useEffect, useState } from "react";
-import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import {
-  currentQualityAtom,
   isVideoLoadingAtom,
   newVideoSignalAtom,
-  qualitySettingsOptionAtom,
   volumeAtom,
   walkingTypeAtom,
 } from "../../atoms";
-import { parseQualityToYoutube, parseYoutubeToQuality } from "../../utils/misc";
 import { Cities } from "../../utils/videolist";
 
 function YoutubePlayer({ videoId, city, startSeconds, endSeconds }) {
@@ -19,14 +16,9 @@ function YoutubePlayer({ videoId, city, startSeconds, endSeconds }) {
   const volume = useRecoilValue(volumeAtom);
   const [playerElement, setPlayerElement] = useState(null);
   const setNewVideoSignal = useSetRecoilState(newVideoSignalAtom);
-  const setQualitySettingsOption = useSetRecoilState(qualitySettingsOptionAtom);
-  const [currentQuality, setCurrentQuality] =
-    useRecoilState(currentQualityAtom);
 
   const onPlayerReady = (event) => {
     setPlayerElement(event);
-    const player = playerElement.target;
-    player.setPlaybackQuality(parseQualityToYoutube(currentQuality));
   };
 
   const onPlayerPause = () => {
@@ -44,25 +36,6 @@ function YoutubePlayer({ videoId, city, startSeconds, endSeconds }) {
 
   const onPlayerPlaying = () => {
     setIsVideoLoading(false);
-    if (playerElement) {
-      const player = playerElement.target;
-
-      const setQualityArray = () => {
-        const qualitySettingsArray = player.getAvailableQualityLevels();
-        const newArray = qualitySettingsArray.map((value) => {
-          return parseYoutubeToQuality(value);
-        });
-        setQualitySettingsOption(newArray);
-      };
-
-      const setQuality = () => {
-        const getCurQuality = player.getPlaybackQuality();
-        setCurrentQuality(parseYoutubeToQuality(getCurQuality));
-      };
-
-      setQualityArray();
-      setQuality();
-    }
   };
   // set video speed
   useEffect(() => {
@@ -86,19 +59,6 @@ function YoutubePlayer({ videoId, city, startSeconds, endSeconds }) {
     }
   }, [volume]);
 
-  // set video quality
-  useEffect(() => {
-    if (playerElement) {
-      const player = playerElement.target;
-      const YoutubeQuality = parseQualityToYoutube(currentQuality);
-      const currentTime = player.getCurrentTime();
-      player.pauseVideo();
-      player.setPlaybackQuality(YoutubeQuality);
-      player.seekTo(currentTime);
-      player.playVideo();
-    }
-  }, [currentQuality]);
-
   return (
     <YouTube
       video={videoId}
@@ -114,6 +74,7 @@ function YoutubePlayer({ videoId, city, startSeconds, endSeconds }) {
       playsInline={false}
       showRelatedVideos={false}
       playbackRate={1} // playback rate. Controlled by setter func. above
+      suggestedQuality="default"
       onReady={onPlayerReady}
       onPlaying={onPlayerPlaying}
       onBuffering={onPlayerBuffering}

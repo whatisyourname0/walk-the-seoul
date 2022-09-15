@@ -6,14 +6,14 @@ import { IconContext } from 'react-icons';
 import { FaGithub } from "react-icons/fa";
 import { FiVolume1, FiVolume2, FiVolumeX } from "react-icons/fi";
 import { GiRunningNinja } from "react-icons/gi";
-import { MdChevronLeft, MdDirectionsWalk, MdOutlineDirectionsRun } from "react-icons/md";
+import { MdChevronLeft, MdDirectionsWalk, MdOutlineDirectionsRun, MdInfo } from "react-icons/md";
 import { IoSettingsSharp } from "react-icons/io5";
 
 // Import Styles
 import './_App.scss';
 
 import { ReactComponent as WalkingMan } from "./assets/WalkingMan.svg";
-import { currentQualityAtom, isVideoLoadingAtom, newVideoSignalAtom, qualitySettingsOptionAtom, volumeAtom, walkingTypeAtom } from './atoms';
+import { isVideoLoadingAtom, newVideoSignalAtom, volumeAtom, walkingTypeAtom } from './atoms';
 import Noise from './Components/Noise/Noise';
 import YoutubePlayer from './Components/YoutubePlayer/YoutubePlayer';
 import { VideoProps, WalkingTypes } from './utils/interfaces';
@@ -31,9 +31,7 @@ function App() {
   const [newVideoSignal, setNewVideoSignal] = useRecoilState<boolean>(newVideoSignalAtom);
   const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(true);
   const [currCity, setCurrCity] = useState<string>("");
-  const [isSettingsOpen, setIsSettingsOpen] = useState<boolean>(false);
-  const qualitySettingsOption = useRecoilValue<Array<any>>(qualitySettingsOptionAtom);
-  const [currentQuality, setCurrentQuality] = useRecoilState(currentQualityAtom);
+  const [isInfoOpen, setIsInfoOpen] = useState<boolean>(false);
 
   const prevVolume = useRef(0);
 
@@ -70,17 +68,10 @@ function App() {
     setCurrCity(selectedCity);
     const nextVideo = getRandomVideo(selectedCity as typeof Cities[number]);
     setCurrVideo(nextVideo);
-    setIsSettingsOpen(false);
   }
 
   const sidebarToggle = () => {
     setIsSidebarOpen((prev) => (!prev));
-  }
-
-  const handleQualityRadioClick = (event: React.MouseEvent<HTMLInputElement>) => {
-    if (!isVideoLoading) {
-      setCurrentQuality(event.currentTarget.value);
-    }
   }
 
   return (
@@ -97,56 +88,24 @@ function App() {
         </div>
       </div>
       <div
-        className="QualitySettingsButtonContainer"
-        onClick={() => { setIsSettingsOpen((prev) => (!prev)); }}
+        className="InfoButtonContainer"
+        onMouseOver={() => { setIsInfoOpen(true); }}
+        onMouseOut={() => { setIsInfoOpen(false); }}
       >
         <IconContext.Provider
-          value={{ className: "QualitySettingsIcon" }}
+          value={{ className: "InfoIcon" }}
         >
-          <IoSettingsSharp />
+          <MdInfo />
           <div
-            className="QualitySettingsTooltip"
+            className="InfoTooltip"
             style={{
-              opacity: isSettingsOpen ? "0" : "0.9",
+              opacity: isInfoOpen ? "0" : "0.9",
             }}
           >
-            <span>Video Quality settings</span>
-            <br /><br />
-            <span>Unfortunately, </span>
-            <br></br>
-            <span>Youtube disabled </span>
-            <br></br>
-            <span>downgrading quality :(</span>
+            Information
           </div>
         </IconContext.Provider>
       </div>
-      {/* <div
-        className="QualitySettingsRadioContainer"
-        style={{
-          top: isSettingsOpen ? "15px" : "-50%",
-          transition: "top 0.2s ease-in-out",
-        }}
-      >
-        {qualitySettingsOption.filter((value) => {
-          return value === "Auto Select" || (Number(value.replace("p", "") >= Number(currentQuality.replace("p", ""))))
-        }).map((value) => {
-          return (
-            <div className="QualitySettingsOption">
-              <label className='radioButton'>
-                <input
-                  type="radio"
-                  name='quality'
-                  id={value}
-                  value={value}
-                  checked={value === currentQuality}
-                  onClick={handleQualityRadioClick}
-                />
-                <span>{value}</span>
-              </label>
-            </div>
-          );
-        })}
-      </div> */}
       {!isMobileVertical &&
         (<div
           className={`SidebarToggleButton ${isSidebarOpen ? `Opened ` : `Closed `}`}
